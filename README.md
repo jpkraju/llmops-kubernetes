@@ -33,7 +33,7 @@ docker rmi <image-id> -f
 
 ```
 
-# Kubernetes commands
+## Kubernetes commands
 ```
 -- look 
 kubectl api-resources
@@ -52,9 +52,13 @@ kubectl get svc
 kubectl describe svc mysvc
 
 -- delete all pods, svc, deploy objects
-kubectl delete pods --all
-kubectl delete svc --all
-kubectl delete deploy chatgpt-deploy
+kubectl delete pods --all / <pod-id>
+kubectl delete svc --all / <svc-id>
+kubectl delete deploy --all / <deploy-id>
+kubectl delete secrets --all / <secret-id>
+
+--create namespace if provided in deploy.yaml 
+kubectl create namespace rk-namespace
 
 --deployment objects
 kubectl get deployments
@@ -63,7 +67,7 @@ kubectl describe deployments
 
 --scale down pods to ZERO and then delete
 kubectl scale deploy -n <namespace> --replicas=0 --all
-kubectl scale deploy -n my-namespace --replicas=0 my-deployment
+kubectl scale deploy --replicas=0 chatgpt-deploy
 
 --rollout 
 kubectl rollout status deployment
@@ -76,6 +80,7 @@ kubectl describe cm app-config
 kubectl exec -it app-pod -- /bin/bash
 
 --secret object
+kubectl get secrets
 kubectl create secret generic openai-secret --from-literal=API_KEY=<api-key>
 kubectl create secret generic db-secret --from-literal=DB_PASSWORD=password123
 
